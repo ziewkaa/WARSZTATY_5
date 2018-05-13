@@ -9,6 +9,8 @@ import pl.coderslab.entity.User;
 import pl.coderslab.repository.TweetRepository;
 import pl.coderslab.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,8 +23,25 @@ public class HomeController {
     TweetRepository tweetRepository;
 
     @GetMapping("/")
-    static public String showHomepage(){
-        return "home";
+    public String publicHomepage(Model model){
+        List<Tweet> tweets = tweetRepository.findAllOrderByCreatedDesc();
+        model.addAttribute("tweets", tweets);
+        return "homepage";
     }
 
+    @GetMapping("/home")
+    public String userHomepage(Model model,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        List<Tweet> tweets = tweetRepository.findAllByUserID(userId);
+        model.addAttribute("tweets", tweets);
+        return "userhomepage";
+    }
+
+    @GetMapping("/usertweets/{id}")
+    public String userTweets(@PathVariable Long id, Model model){
+        List<Tweet> tweets = tweetRepository.findAllByUserID(id);
+        model.addAttribute("tweets", tweets);
+        return "usertweets";
+    }
 }

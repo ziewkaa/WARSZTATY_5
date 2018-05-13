@@ -59,10 +59,11 @@ public class LoginController {
         User checkUser = userRepository.findByEmail(email);
         if (checkUser != null) {
             if (checkUser.getPassword().equals(password)){
-                return "home";
+                session.setAttribute("userId", user.getId());
+                return "redirect:/home";
             }
         }
-        return "redirect:/login";
+        return "login";
     }
 
 
