@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tweets")
@@ -22,12 +23,15 @@ public class Tweet {
 
     @NotEmpty
     @Size(max=160)
-    private String tweetText;
+    private String text;
 
     private LocalDateTime created;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+//    @ManyToOne(mappedBy = "tweets", fetch = FetchType.EAGER)
     private User user;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+    private List<Comment> comments;
 
     public Tweet(){};
 
@@ -47,12 +51,12 @@ public class Tweet {
         this.title = title;
     }
 
-    public String getTweetText() {
-        return tweetText;
+    public String getText() {
+        return text;
     }
 
-    public void setTweetText(String tweetText) {
-        this.tweetText = tweetText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LocalDateTime getCreated() {

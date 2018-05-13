@@ -2,6 +2,9 @@ package pl.coderslab.entity;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 import pl.coderslab.validator.LoginUserValidator;
 
 import javax.persistence.*;
@@ -10,7 +13,7 @@ import javax.validation.groups.Default;
 import java.util.List;
 
 @Entity
-@Transactional
+//@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Table(name = "users")
 public class User {
 
@@ -31,8 +34,11 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+//    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Tweet> tweets;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+    private List<Comment> comments;
 
     public User (){};
 
