@@ -7,5 +7,6 @@ import pl.coderslab.entity.User;
 public interface UserRepository extends JpaRepository<User,Long> {
 
     User findById(@Param("userId") Long userId);
+
     User findByEmail(@Param("userEmail") String email );
 }
