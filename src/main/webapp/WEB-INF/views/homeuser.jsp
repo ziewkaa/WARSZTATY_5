@@ -6,9 +6,9 @@
     <title>Tweeter</title>
 </head>
 <body>
-<%@include file="header.jsp"%>
+<p><a href="/logout">Log Out</a> </p>
 <hr>
-<p>Add Tweet<a href="/addtweet"><button>here</button></a></p>
+<p>Add Tweet<a href="/tweet/add"><button>here</button></a></p>
 <hr>
 <p>Tweets</p>
 
