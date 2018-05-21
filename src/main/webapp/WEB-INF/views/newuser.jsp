@@ -9,7 +9,7 @@
 
     <p>Create Account:</p>
 
-    <<form:form method="post" modelAttribute="user">
+    <form:form method="post" modelAttribute="user">
 
         <label>First Name:
             <form:input path="firstName" /></label>

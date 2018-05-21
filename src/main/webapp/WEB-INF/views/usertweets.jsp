@@ -17,7 +17,6 @@
                     <td>${tweet.title}</td>
                     <td>${tweet.text}</td>
                     <td>${tweet.created}</td>
-                    <%--<td>${comments counter}</td>--%>
                 </tr>
             </c:forEach>
         </table>

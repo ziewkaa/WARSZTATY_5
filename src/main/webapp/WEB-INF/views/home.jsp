@@ -6,7 +6,9 @@
     <title>Tweeter</title>
 </head>
     <body>
-        <%@include file="header.jsp"%>
+
+        <p><a href="/login">Log In</a></p>
+        <p><a href="/user/add">Create Account</a></p>
         <hr>
         <p>Recent Tweets</p>
 
@@ -20,6 +22,5 @@
                 </tr>
             </c:forEach>
         </table>
-        <%@include file="footer.jsp"%>
     </body>
 </html>

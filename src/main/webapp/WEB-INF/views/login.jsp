@@ -7,7 +7,7 @@
 </head>
     <body>
 
-        <p>Sign Up: <a href="/add">here</a></p>
+        <p>Sign Up: <a href="/user/add">here</a></p>
         <hr>
 
         <p>User sign in:</p>
