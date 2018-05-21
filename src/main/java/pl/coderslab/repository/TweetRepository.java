@@ -9,7 +9,6 @@ import pl.coderslab.entity.User;
 
 import java.util.List;
 
-@Repository
 public interface TweetRepository extends JpaRepository<Tweet,Long> {
 
     @Query("SELECT t FROM Tweet t JOIN t.user u WHERE u.id = :userId")
@@ -17,11 +16,10 @@ public interface TweetRepository extends JpaRepository<Tweet,Long> {
 
     List<Tweet> findAllByUser(User user);
 
-    List<Tweet> findAllOrderByCreatedDesc();
+    @Query("SELECT t FROM Tweet t ORDER BY t.created ASC ")
+    List<Tweet> findAllByOrderByCreatedAsc();
 
     @Query("DELETE FROM Tweet t WHERE t.user.id = :userId")
     void deleteAllByUserId(@Param("userId") Long userId);
-
-    int countAllByTweetId(@Param("tweetId") Long tweetId);
 
 }

@@ -34,10 +34,10 @@ public class User {
     @Column(unique = true)
     private String email;
 
-//    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany
     private List<Tweet> tweets;
 
-//    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private List<Comment> comments;
 
     public User (){};
