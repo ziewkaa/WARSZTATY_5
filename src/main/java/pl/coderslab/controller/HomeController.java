@@ -8,6 +8,8 @@ import pl.coderslab.entity.Tweet;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.TweetRepository;
 import pl.coderslab.repository.UserRepository;
+import pl.coderslab.service.TweetService;
+import pl.coderslab.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,31 +19,15 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
-    TweetRepository tweetRepository;
+    TweetService tweetService;
 
     @GetMapping("/")
-    public String publicHomepage(Model model){
-        List<Tweet> tweets = tweetRepository.findAllOrderByCreatedDesc();
-        model.addAttribute("tweets", tweets);
-        return "homepage";
-    }
-
-    @GetMapping("/home")
-    public String userHomepage(Model model,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        List<Tweet> tweets = tweetRepository.findAllByUserID(userId);
-        model.addAttribute("tweets", tweets);
-        return "userhomepage";
-    }
-
-    @GetMapping("/usertweets/{id}")
-    public String userTweets(@PathVariable Long id, Model model){
-        List<Tweet> tweets = tweetRepository.findAllByUserID(id);
-        model.addAttribute("tweets", tweets);
-        return "usertweets";
+    public String publicHomepage(Model model) {
+        List<Tweet> tweets = tweetService.findAllTweetsOrderByCreatedAsc();
+        model.addAttribute("tweets",tweets);
+        return "home";
     }
 }

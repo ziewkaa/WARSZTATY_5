@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
+import pl.coderslab.service.UserService;
 import pl.coderslab.validator.LoginUserValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,52 +19,55 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @GetMapping("/add")
-    public String add(Model model){
-        model.addAttribute("user", new User());
-        return "newuser" ;
-    }
-
-    @PostMapping("/add")
-    public String save(@Validated({LoginUserValidator.class}) @ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        String email = user.getEmail();
-        if (bindingResult.hasErrors()){
-            return "newuser";
-        }
-        if (userRepository.findByEmail(email) == null) {
-            userRepository.save(user);
-            Long id = user.getId();
-            session.setAttribute("userId", id);
-            return "redirect:/" ;
-        }
-        return "newuser" ;
-    }
+    UserService userService;
 
     @GetMapping("/login")
-    public String check(Model model){
-        model.addAttribute("user", new User());
-        return "login" ;
+    public String check(Model model, HttpSession session){
+
+        Long id =  (Long) session.getAttribute("userId");
+
+        if (id == null){
+            model.addAttribute("user", new User());
+            return "login" ;
+        }
+
+        return "redirect:/user/home";
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute User user,BindingResult bindingResult, HttpServletRequest request){
+    public String login(@Valid @ModelAttribute User user,BindingResult bindingResult, HttpSession session){
+
         if (bindingResult.hasErrors()){
             return "login";
         }
-        HttpSession session = request.getSession();
+
         String email = user.getEmail();
         String password = user.getPassword();
-        User checkUser = userRepository.findByEmail(email);
+        User checkUser = userService.findUserByEmail(email);
+
         if (checkUser != null) {
             if (checkUser.getPassword().equals(password)){
-                session.setAttribute("userId", user.getId());
-                return "redirect:/home";
+                session.setAttribute("userId", checkUser.getId());
+                return "redirect: /user/home";
             }
         }
+
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String signOut(Model model, HttpSession session){
+
+        Long id =  (Long) session.getAttribute("userId");
+
+        if (id == null){
+            model.addAttribute("user", new User());
+            return "login" ;
+        }
+
+        session.removeAttribute("userId");
+        return "redirect:/";
+
     }
 
 
