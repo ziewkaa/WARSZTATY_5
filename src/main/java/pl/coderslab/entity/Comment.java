@@ -22,7 +22,7 @@ public class Comment {
     @ManyToOne
     private User user;
 
-    private LocalDate created;
+    private LocalDateTime created;
 
     @NotEmpty(groups = {LoginUserValidator.class, Default.class})
     private String text;
@@ -45,11 +45,11 @@ public class Comment {
         this.tweet = tweet;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
@@ -59,5 +59,13 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

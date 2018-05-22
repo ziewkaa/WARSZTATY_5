@@ -13,7 +13,6 @@ import javax.validation.groups.Default;
 import java.util.List;
 
 @Entity
-//@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Table(name = "users")
 public class User {
 
@@ -34,11 +33,17 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tweet> tweets;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+//    @OneToMany(mappedBy = "sender",cascade = CascadeType.ALL)
+//    private List<Message> messagesSent;
+//
+//    @OneToMany(mappedBy = "receiver",cascade = CascadeType.ALL)
+//    private List<Message> messagesReceived;
 
     public User (){};
 
@@ -90,5 +95,27 @@ public class User {
         this.password = password;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+//    public List<Message> getMessagesSent() {
+//        return messagesSent;
+//    }
+//
+//    public void setMessagesSent(List<Message> messagesSent) {
+//        this.messagesSent = messagesSent;
+//    }
+//
+//    public List<Message> getMessagesReceived() {
+//        return messagesReceived;
+//    }
+//
+//    public void setMessagesReceived(List<Message> messagesReceived) {
+//        this.messagesReceived = messagesReceived;
+//    }
 }
