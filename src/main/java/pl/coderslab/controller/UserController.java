@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.Tweet;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
+import pl.coderslab.service.CommentService;
 import pl.coderslab.service.TweetService;
 import pl.coderslab.service.UserService;
 import pl.coderslab.validator.LoginUserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -28,6 +30,9 @@ public class UserController {
     @Autowired
     TweetService tweetService;
 
+    @Autowired
+    CommentService commentService;
+
     @GetMapping("/home")
     public String showHomepage(HttpSession session, Model model){
 
@@ -37,7 +42,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        List<Tweet> tweets = tweetService.findAllTweetsByUserID(id);
+        List<Tweet> tweets = tweetService.findAllTweets();
         model.addAttribute("tweets",tweets);
         return "homeuser";
     }
@@ -83,7 +88,7 @@ public class UserController {
             return "redirect:/login";
         }
         User user = userService.findUserById(id);
-        model.addAttribute(user);
+        model.addAttribute("user",user);
         return "useredit" ;
     }
 
@@ -91,17 +96,59 @@ public class UserController {
     public String saveEdit(@Validated({LoginUserValidator.class}) @ModelAttribute User user, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
-            return "newuser";
+            return "useredit";
         }
-
-//        Long id = user.getId();
-//        String password = user.getPassword();
-//        String firstName = user.getFirstName();
-//        String lastName = user.getLastName();
-//        String email = user.getEmail();
-//        userService.updateUserById(id,password,lastName,firstName,email);
         userService.saveUser(user);
         return "redirect:/user/home" ;
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, HttpServletRequest request){
+
+        request.setAttribute("id", id);
+        return "deleteuser" ;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, @RequestParam boolean confirm, HttpSession session){
+
+        if (confirm) {
+            userService.deleteUserById(id);
+            session.removeAttribute("userId");
+            return "redirect:/";
+        }
+
+        return "redirect:/user/home" ;
+    }
+
+    @GetMapping("/tweets")
+    public String tweets(Model model, HttpSession session){
+
+        Long id =  (Long) session.getAttribute("userId");
+
+        if (id == null){
+            return "redirect:/login";
+        }
+        List<Tweet> tweets = tweetService.findAllTweetsByUserID(id);
+        model.addAttribute("tweets", tweets);
+        return "usertweets" ;
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable Long id, Model model, HttpSession session){
+
+        Long userId =  (Long) session.getAttribute("userId");
+
+        if (userId == null){
+            return "redirect:/login";
+        }
+
+        User user = userService.findUserById(id);
+        List<Tweet> tweets = tweetService.findAllTweetsByUserID(id);
+        model.addAttribute("tweets", tweets);
+        model.addAttribute(user);
+        return "userdetails" ;
+    }
+
 
 }
