@@ -16,10 +16,13 @@ public interface TweetRepository extends JpaRepository<Tweet,Long> {
 
     List<Tweet> findAllByUser(User user);
 
-    @Query("SELECT t FROM Tweet t ORDER BY t.created ASC ")
-    List<Tweet> findAllByOrderByCreatedAsc();
+    @Query("SELECT t FROM Tweet t ORDER BY t.created DESC")
+    List<Tweet> findAllByOrderByCreatedDesc();
 
     @Query("DELETE FROM Tweet t WHERE t.user.id = :userId")
     void deleteAllByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT t FROM Tweet t WHERE t.id = :id")
+    Tweet findOneById(@Param("id") Long id);
 
 }

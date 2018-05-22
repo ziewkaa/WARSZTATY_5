@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
-    @Query("SELECT c FROM Comment c WHERE tweet_id = :tweetId")
-    List<Comment> findAllByTweetId(@Param("tweetId") Long tweetId);
+    @Query("SELECT c FROM Comment c WHERE tweet_id = :tweetId ORDER BY c.created ASC")
+    List<Comment> findAllByTweetIdOderByCreatedAsc(@Param("tweetId") Long tweetId);
 
+    int countAllByTweetId(@Param("id") Long id);
 
 }
