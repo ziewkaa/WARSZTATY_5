@@ -3,11 +3,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Tweet</title>
     <style>
         body {
             margin: 50px;
-            text-decoration: none;
         }
         ul, li {
             list-style: none;
@@ -22,16 +21,19 @@
         td {
             max-width: 300px;
         }
-        form , input{
+        input[type=submit]{
+            display: block;
+        }
+
+        form , input[type=radio]{
             width: 150px;
-            display: inline-block;
+            display: inline;
             margin: 10px 0 10px 0;
             padding: 10px;
         }
     </style>
 </head>
     <body>
-
         <ul>
             <li><a href="/">Home page</a></li>
             <li><a href="/user/edit">Edit Account</a></li>
@@ -39,32 +41,15 @@
             <li><a href="/message/all">My Messages</a></li>
             <li><a href="/logout">Log Out</a></li>
         </ul>
-
-        <hr>
-            <p>Edit Personal Details:</p>
-
-            <form:form method="post" modelAttribute="user">
-
-                <form:hidden path="id"/>
-                <label>First Name:
-                    <form:input path="firstName" /></label>
-                    <form:errors path="firstName"/>
-                <label>Last Name:
-                    <form:input path="lastName" /></label>
-                    <form:errors path="lastName"/>
-                <label>E-Mail:
-                    <form:input path="email" /></label>
-                    <form:errors path="email"/>
-                <label>Password:
-                    <form:password path="password" /></label>
-                    <form:errors path="password"/>
-                <input type="submit" value="save">
-
-            </form:form>
-
         <hr>
 
-        <p>Delete account : <a href="/user/delete/${user.id}">here</a> </p>
+        <p>Delete Tweet:</p>
 
+        <form action="/tweet/delete/${id}" method="post">
+            <p>Are you sure you want to delete this tweet?</p></br>
+            <span>Yes: <input type="radio" name="confirm" value="yes"></span></br>
+            <span>No: <input type="radio" name="confirm" value="no" required></span>
+            <input type="submit" value="confirm"/>
+        </form>
     </body>
 </html>

@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Log In</title>
+    <title>USer</title>
     <style>
         body {
             margin: 50px;
@@ -26,30 +26,27 @@
             width: 150px;
             display: inline-block;
             margin: 10px 0 10px 0;
-            padding: 10px;
+            padding: 10px 0 10px 0;
         }
-
     </style>
 </head>
     <body>
         <ul>
-            <li><a href="/user/add">Sign Up</a></li>
-            <li><a href="/">Home Page</a></li>
+            <li><a href="/">Home page</a></li>
+            <li><a href="/user/edit">Edit Account</a></li>
+            <li><a href="/user/tweets">My Tweets</a></li>
+            <li><a href="/message/all">My Messages</a></li>
+            <li><a href="/logout">Log Out</a></li>
         </ul>
         <hr>
 
-        <p>Sign in:</p>
+        <p>Delete Account:</p>
 
-    <form:form method="post" modelAttribute="user">
-
-        <label>E-Mail:
-            <form:input path="email" /></label>
-            <form:errors path="email"/>
-        <label>Password:
-            <form:password path="password" /></label>
-            <form:errors path="password"/>
-        <input type="submit" value="save">
-
-    </form:form>
+        <form action="/user/delete/${id}" method="post">
+            <label>Are you sure you want to delete your account?:
+                <input type="checkbox" name="confirm">
+                <input type="submit" value="confirm"/>
+            </label>
+        </form>
     </body>
 </html>

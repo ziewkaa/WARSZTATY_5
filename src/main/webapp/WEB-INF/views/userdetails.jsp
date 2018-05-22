@@ -26,24 +26,31 @@
 </head>
     <body>
         <ul>
-            <li><a href="/login">Log In</a></li>
-            <li><a href="/user/add">Sign Up</a></li>
+            <li><a href="/">Home page</a></li>
+            <li><a href="/user/edit">Edit Account</a></li>
+            <li><a href="/user/tweets">My Tweets</a></li>
+            <li><a href="/message/all">My Messages</a></li>
+            <li><a href="/logout">Log Out</a></li>
         </ul>
 
         <hr>
 
-        <p>Recent Tweets</p>
+        <p>Send message: <a href="/message/new/${user.id}"><button>here</button></a> </p>
+
+        <hr>
+        <p>User ${user.email} Tweets: </p>
 
         <table>
-            <tr><th>Title</th><th>Author</th><th>Tweet</th><th>Details</th></tr>
+            <tr><th>Title</th><th>Tweet</th><th>Created</th><th>Comments</th></tr>
             <c:forEach items="${tweets}" var="tweet">
                 <tr>
-                    <td>${tweet.created}</td>
-                    <td>${tweet.user.email}</td>
                     <td>${tweet.title}</td>
+                    <td>${tweet.text}</td>
+                    <td>${tweet.created}</td>
                     <td><a href="/tweet/details/${tweet.id}">Link</a></td>
                 </tr>
             </c:forEach>
         </table>
+
     </body>
 </html>

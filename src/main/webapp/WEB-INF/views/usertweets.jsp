@@ -4,19 +4,46 @@
 <html>
     <head>
         <title>Title</title>
+        <style>
+            body {
+                margin: 50px;
+                text-decoration: none;
+            }
+            ul, li {
+                list-style: none;
+                display: inline-block;
+                margin: 10px;
+            }
+            table, tr, th, td {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid black;
+            }
+            td {
+                max-width: 300px;
+            }
+        </style>
     </head>
     <body>
-        <p>Send message to the User: <a href="/usermessage"><button>click</button></a></p></br>
-        <hr>
+    <ul>
+        <li><a href="/">Home page</a></li>
+        <li><a href="/user/edit">Edit Account</a></li>
+        <li><a href="/user/tweets">My Tweets</a></li>
+        <li><a href="/message/all">My Messages</a></li>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
+    <hr>
         <p>Tweets: </p>
 
         <table>
-            <tr><th>Title</th><th>Tweet</th><th>Created</th><th>Comments</th></tr>
+            <tr><th>Title</th><th>Tweet</th><th>Created</th><th>Details</th><th>Actions</th></tr>
             <c:forEach items="${tweets}" var="tweet">
                 <tr>
                     <td>${tweet.title}</td>
                     <td>${tweet.text}</td>
                     <td>${tweet.created}</td>
+                    <td><a href="/tweet/details/${tweet.id}">Link</a></td>
+                    <td><a href="/tweet/delete/${tweet.id}">Delete</a> / <a href="/tweet/edit/${tweet.id}">Edit</a></td>
                 </tr>
             </c:forEach>
         </table>

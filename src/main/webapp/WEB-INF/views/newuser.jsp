@@ -4,8 +4,39 @@
 <html>
 <head>
     <title>New User</title>
+    <style>
+        body {
+            margin: 50px;
+            text-decoration: none;
+        }
+        ul, li {
+            list-style: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        table, tr, th, td {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        td {
+            max-width: 300px;
+        }
+        form , input{
+            width: 150px;
+            display: inline-block;
+            margin: 10px 0 10px 0;
+            padding: 10px 0 10px 0;
+        }
+    </style>
 </head>
     <body>
+
+    <ul>
+        <li><a href="/login">Log In</a></li>
+        <li><a href="/">Home Page</a></li>
+    </ul>
+    <hr>
 
     <p>Create Account:</p>
 

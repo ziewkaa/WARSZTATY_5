@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Log In</title>
+    <title>Title</title>
     <style>
         body {
             margin: 50px;
@@ -28,28 +28,31 @@
             margin: 10px 0 10px 0;
             padding: 10px;
         }
-
     </style>
 </head>
+
     <body>
+
         <ul>
-            <li><a href="/user/add">Sign Up</a></li>
-            <li><a href="/">Home Page</a></li>
+            <li><a href="/">Home page</a></li>
+            <li><a href="/user/edit">Edit Account</a></li>
+            <li><a href="/user/tweets">My Tweets</a></li>
+            <li><a href="/message/all">My Messages</a></li>
+            <li><a href="/logout">Log Out</a></li>
         </ul>
+
         <hr>
 
-        <p>Sign in:</p>
+        <p>Add Comment:</p>
 
-    <form:form method="post" modelAttribute="user">
+        <form:form method="post" modelAttribute="comment">
 
-        <label>E-Mail:
-            <form:input path="email" /></label>
-            <form:errors path="email"/>
-        <label>Password:
-            <form:password path="password" /></label>
-            <form:errors path="password"/>
-        <input type="submit" value="save">
+            <label>Content:</label>
+                <form:textarea path="text" cols="100" rows="10"/>
+            <form:errors path="text"/>
+            <input type="submit" value="save">
 
-    </form:form>
+        </form:form>
+
     </body>
 </html>
