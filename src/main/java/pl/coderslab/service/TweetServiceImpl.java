@@ -29,8 +29,18 @@ public class TweetServiceImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> findAllTweetsOrderByCreatedAsc() {
-        return tweetRepository.findAllByOrderByCreatedAsc();
+    public List<Tweet> findAllTweetsOrderByCreatedDesc() {
+        return tweetRepository.findAllByOrderByCreatedDesc();
+    }
+
+    @Override
+    public Tweet findOneTweetById(Long id) {
+        return tweetRepository.findOneById(id);
+    }
+
+    @Override
+    public void deleteTweet(Tweet tweet) {
+        tweetRepository.delete(tweet);
     }
 
 //    @Override

@@ -8,4 +8,7 @@ public interface CommentService {
 
     List<Comment> findAllCommentsByTweetId(Long id);
 
+    void saveComment(Comment comment);
+
+    int countAllCommentsByTweetId(Long id);
 }

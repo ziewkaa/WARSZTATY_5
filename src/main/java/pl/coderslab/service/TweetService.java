@@ -12,7 +12,9 @@ public interface TweetService {
 
     List<Tweet> findAllTweets();
 
-    List<Tweet> findAllTweetsOrderByCreatedAsc();
+    List<Tweet> findAllTweetsOrderByCreatedDesc();
 
-//    List<Tweet> findAllTweetsByUser(User user);
+    Tweet findOneTweetById(Long id);
+
+    void deleteTweet(Tweet tweet);
 }

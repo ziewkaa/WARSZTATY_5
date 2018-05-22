@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,10 +29,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-//    @Override
-//    public void updateUserById(Long id, String password, String lastName, String firstName, String email) {
-//        userRepository.updateUserById(password,email,firstName,lastName,id);
-//    }
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.delete(id);
+    }
+
 
 }
 
