@@ -39,11 +39,11 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-//    @OneToMany(mappedBy = "sender",cascade = CascadeType.ALL)
-//    private List<Message> messagesSent;
-//
-//    @OneToMany(mappedBy = "receiver",cascade = CascadeType.ALL)
-//    private List<Message> messagesReceived;
+    @OneToMany(mappedBy = "sender",cascade = CascadeType.ALL)
+    private List<Message> messagesSent;
+
+    @OneToMany(mappedBy = "receiver",cascade = CascadeType.ALL)
+    private List<Message> messagesReceived;
 
     public User (){};
 
@@ -103,19 +103,19 @@ public class User {
         this.comments = comments;
     }
 
-//    public List<Message> getMessagesSent() {
-//        return messagesSent;
-//    }
-//
-//    public void setMessagesSent(List<Message> messagesSent) {
-//        this.messagesSent = messagesSent;
-//    }
-//
-//    public List<Message> getMessagesReceived() {
-//        return messagesReceived;
-//    }
-//
-//    public void setMessagesReceived(List<Message> messagesReceived) {
-//        this.messagesReceived = messagesReceived;
-//    }
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
 }

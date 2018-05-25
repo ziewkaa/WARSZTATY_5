@@ -7,10 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.entity.Message;
 import pl.coderslab.entity.Tweet;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
 import pl.coderslab.service.CommentService;
+import pl.coderslab.service.MessageService;
 import pl.coderslab.service.TweetService;
 import pl.coderslab.service.UserService;
 import pl.coderslab.validator.LoginUserValidator;
@@ -32,6 +34,9 @@ public class UserController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    MessageService messageService;
 
     @GetMapping("/home")
     public String showHomepage(HttpSession session, Model model){
@@ -132,6 +137,23 @@ public class UserController {
         List<Tweet> tweets = tweetService.findAllTweetsByUserID(id);
         model.addAttribute("tweets", tweets);
         return "usertweets" ;
+    }
+
+    @GetMapping("/messages")
+    public String messages(Model model, HttpSession session){
+
+        Long id =  (Long) session.getAttribute("userId");
+
+        if (id == null){
+            return "redirect:/login";
+        }
+
+        User user = userService.findUserById(id);
+        List<Message> messagesSent = messageService.findAllBySender(user);
+        List<Message> messagesReceived = messageService.findAllByReceiver(user);
+        model.addAttribute("messagesSent", messagesSent);
+        model.addAttribute("messagesReceived", messagesReceived);
+        return "usermessages" ;
     }
 
     @GetMapping("/details/{id}")

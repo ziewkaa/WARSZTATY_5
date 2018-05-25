@@ -33,14 +33,33 @@
     <li><a href="/logout">Log Out</a></li>
 </ul>
 <hr>
-<p>Messages: </p>
+<p>Messages Sent: </p>
 
 <table>
-    <tr><th>Content</th><th>Sent</th></tr>
-    <c:forEach items="${messages}" var="message">
+    <tr><th>Content</th><th>Sent</th><th>To</th><th>Details</th><th>Delete</th></tr>
+    <c:forEach items="${messagesSent}" var="message">
         <tr>
             <td>${message.content}</td>
             <td>${message.created}</td>
+            <td>${message.receiver.email}</td>
+            <td><a href="/message/details/${message.id}">Link</a></td>
+            <td><a href="/message/delete/${message.id}">Remove</a></td>
+
+        </tr>
+    </c:forEach>
+</table>
+
+<p>Messages Received: </p>
+
+<table>
+    <tr><th>Content</th><th>Received</th><th>From</th><th>Details</th><th>Delete</th></tr>
+    <c:forEach items="${messagesReceived}" var="message">
+        <tr>
+            <td>${message.content}</td>
+            <td>${message.created}</td>
+            <td>${message.sender.email}</td>
+            <td><a href="/message/details/${message.id}">Link</a></td>
+            <td><a href="/message/delete/${message.id}">Remove</a></td>
         </tr>
     </c:forEach>
 </table>

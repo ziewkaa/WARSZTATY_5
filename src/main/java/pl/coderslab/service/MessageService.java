@@ -17,4 +17,6 @@ public interface MessageService {
     void saveMessage(Message message);
 
     List<Message> findAllMessagesByReceiverAndSender(Long id);
+
+    void deleteMessageById(Long id);
 }

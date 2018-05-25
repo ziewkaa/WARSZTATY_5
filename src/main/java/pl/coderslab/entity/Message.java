@@ -26,7 +26,7 @@ public class Message {
     @ManyToOne
     private User receiver;
 
-    private boolean read = false;
+    private Boolean read = false;
 
     public Message(){};
 

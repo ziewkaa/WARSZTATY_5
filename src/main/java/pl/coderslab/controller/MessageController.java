@@ -49,11 +49,13 @@ public class MessageController {
         if (bindingResult.hasErrors()){
             return "newmessage";
         }
+
         message.setCreated(LocalDateTime.now());
         message.setReceiver(userService.findUserById(receiver.getId()));
         message.setSender(userService.findUserById(sender));
         messageService.saveMessage(message);
-        return "redirect:/message/sent" ;
+
+        return "redirect:/user/messages" ;
     }
 
     @GetMapping("/all")
@@ -68,6 +70,26 @@ public class MessageController {
         List<Message> messages = messageService.findAllMessagesByReceiverAndSender(userId);
         model.addAttribute("messages", messages);
         return "usermessages" ;
+
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+
+        messageService.deleteMessageById(id);
+        return "user/messages" ;
+
+    }
+
+    @GetMapping("/details/{id}")
+    public String delete(@PathVariable Long id, Model model, HttpSession session){
+
+        Message message = messageService.findById(id);
+        message.setRead(true);
+        messageService.saveMessage(message);
+        model.addAttribute("message", message);
+
+        return "messagedetails" ;
 
     }
 

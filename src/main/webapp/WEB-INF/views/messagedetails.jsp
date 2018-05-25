@@ -34,23 +34,19 @@
         </ul>
 
         <hr>
-        <c:if test="${sessionScope.get(userId)} != ${user.id}">
-            <p>Send message: <a href="/message/new/${user.id}"><button>here</button></a> </p>
-        </c:if>
-        <hr>
-        <p>User ${user.email} Tweets: </p>
+
+        <p>Message: </p>
 
         <table>
-            <tr><th>Title</th><th>Tweet</th><th>Created</th><th>Comments</th></tr>
-            <c:forEach items="${tweets}" var="tweet">
-                <tr>
-                    <td>${tweet.title}</td>
-                    <td>${tweet.text}</td>
-                    <td>${tweet.created}</td>
-                    <td><a href="/tweet/details/${tweet.id}">Link</a></td>
-                </tr>
-            </c:forEach>
-        </table>
+            <tr><th>Created</th><th>Sender</th><th>Content</th></tr>
+            <tr>
+                <td>${message.created}</td>
+                <td>${message.sender.mail}</td>
+                <td>${message.content}</td>
+            </tr>
+        </table></br>
+
+        <p>Reply: <a href="/message/new/${message.sender.id}"><button>send</button></a> </p>
 
     </body>
 </html>

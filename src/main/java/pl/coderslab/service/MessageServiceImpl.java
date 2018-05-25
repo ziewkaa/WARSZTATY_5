@@ -40,4 +40,9 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> findAllMessagesByReceiverAndSender(Long id) {
         return messageRepository.findAllByReceiverAndSenderId(id);
     }
+
+    @Override
+    public void deleteMessageById(Long id) {
+        messageRepository.delete(id);
+    }
 }
